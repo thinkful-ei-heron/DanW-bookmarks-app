@@ -97,53 +97,6 @@ export default class Bookmark {
     return html;
   }
 
-  //handle landing page events
-
-  _handleNewBookmarkEvent() {
-    //console.log('adding event listener for newBookmark button');
-    $('header').on('click', '.newBookmark', event => {
-      //console.log('the NEW button was pressed');
-      this.store.toggleAdding();
-      this.render();
-    });
-  }
-
-  _handleFilterChangeEvent() {
-    $('header').on('change', '.filter', event => {
-      let val = $(event.target).val();
-      this.store.setFilter(val);
-      this.render();
-    });
-  }
-
-  _handleEditBookmarkEvent() {
-    $('main').on('click', '.editBookmark', event => {
-      event.stopPropagation();
-      let id = $(event.target).data('id');
-      this.store.toggleEdit();
-      this.render(id);
-    });
-  }
-
-  _handleDeleteBookmarkEvent() {
-    $('main').on('click', '.deleteBookmark', event => {
-      //console.log('the Cancel button was pressed');
-      event.stopPropagation();
-      let id = $(event.target).data('id');
-      this.api
-        .deleteBookmark(id)
-        .then(() => {
-          this.store.findAndDelete(id);
-          this.render();
-        })
-        .catch(err => {
-          console.log(err.message);
-          this.store.setError(err.message);
-          this.render();
-        });
-    });
-  }
-
   //generate new bookmark form
   _generateNewBookmarkHtml() {
     return `
@@ -211,6 +164,53 @@ export default class Bookmark {
         })
         .catch(err => {
           console.log(err);
+          this.store.setError(err.message);
+          this.render();
+        });
+    });
+  }
+
+  //handle landing page events
+
+  _handleNewBookmarkEvent() {
+    //console.log('adding event listener for newBookmark button');
+    $('header').on('click', '.newBookmark', event => {
+      //console.log('the NEW button was pressed');
+      this.store.toggleAdding();
+      this.render();
+    });
+  }
+
+  _handleFilterChangeEvent() {
+    $('header').on('change', '.filter', event => {
+      let val = $(event.target).val();
+      this.store.setFilter(val);
+      this.render();
+    });
+  }
+
+  _handleEditBookmarkEvent() {
+    $('main').on('click', '.editBookmark', event => {
+      event.stopPropagation();
+      let id = $(event.target).data('id');
+      this.store.toggleEdit();
+      this.render(id);
+    });
+  }
+
+  _handleDeleteBookmarkEvent() {
+    $('main').on('click', '.deleteBookmark', event => {
+      //console.log('the Cancel button was pressed');
+      event.stopPropagation();
+      let id = $(event.target).data('id');
+      this.api
+        .deleteBookmark(id)
+        .then(() => {
+          this.store.findAndDelete(id);
+          this.render();
+        })
+        .catch(err => {
+          console.log(err.message);
           this.store.setError(err.message);
           this.render();
         });

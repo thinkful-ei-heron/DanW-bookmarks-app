@@ -8,6 +8,7 @@ $newBtnColor: #d51439;
 
 body {
   font-family: 'Noto Sans', sans-serif;
+  background-color: #fdfffd;
 
   & button {
     cursor: pointer;
@@ -27,7 +28,7 @@ header {
 
   & .banner {
     position: relative;
-    width: 600px;
+    width: 320px;
     height: 155px;
     margin: 0 auto;
   }
@@ -44,7 +45,7 @@ header {
   & h2 {
     position: absolute;
     top: 80px;
-    left: 175px;
+    left: 45px;
     width: 150px;
     font-size: 18px;
     font-weight: bold;
@@ -117,7 +118,7 @@ main {
 }
 
 .site {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .bookmarkHeader {
