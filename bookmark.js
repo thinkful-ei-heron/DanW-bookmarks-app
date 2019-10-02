@@ -20,7 +20,7 @@ export default class Bookmark {
       console.log('filter level is ' + this.store.filter);
       html += `
           <button class="newBookmark">New</button>
-          <label for="filter">Filter by minimum rating</label>
+          <label for="filter">min. rating</label>
           <select class="filter" id="filter">
             <option ${this.store.filter == 1 ? 'selected' : ''} value="1">${this.stars[1]}</option>
             <option ${this.store.filter == 2 ? 'selected' : ''} value="2">${this.stars[2]}</option>
@@ -45,25 +45,38 @@ export default class Bookmark {
   //generate landing/home page html
   _generateHomeHtml() {
     let html = '<ul class="bookmarks">';
+    let plusMinus;
     this.store.bookmarks.forEach(bm => {
       if (bm.apiData.rating >= this.store.filter) {
         let expandHtml = '';
         if (bm.expanded) {
+          plusMinus = `<i class="fa fa-minus" data-id="${bm.apiData.id}"></i>`;
           expandHtml = `
             <a href="${bm.apiData.url}">Visit Site</a>
             <p>${bm.apiData.desc}</p>
           `;
-        }
+        } else plusMinus = `<i class="fa fa-plus" data-id="${bm.apiData.id}"></i>`;
 
         html += `
           <li class="site">
             <div class="bookmarkHeader" data-id="${bm.apiData.id}">
-              <h3 data-id="${bm.apiData.id}">${bm.apiData.title}</h3>
-              <button class="deleteBookmark" data-id="${bm.apiData.id}">Delete</button>
-              <button class="editBookmark" data-id="${bm.apiData.id}">Edit</button>
-              <p data-id="${bm.apiData.id}" class="rating">${this.stars[bm.apiData.rating]}</p>
+              ${plusMinus}
+              <div class="siteInfo">
+                <h3 data-id="${bm.apiData.id}">${bm.apiData.title}</h3>
+                <p data-id="${bm.apiData.id}" class="rating">${this.stars[bm.apiData.rating]}</p>
+              </div>
+              <div class="siteButtons">
+              <button class="editBookmark" data-id="${bm.apiData.id}">
+                <i class="fa fa-edit" data-id="${bm.apiData.id}"></i>
+              </button>
+                <button class="deleteBookmark" data-id="${bm.apiData.id}">
+                  <i class="fa fa-trash-alt" data-id="${bm.apiData.id}"></i>
+                </button>
+              </div>
             </div>
-            <p>${bm.expanded ? expandHtml : ''}</p>
+            <div class="siteExpansion">
+              ${bm.expanded ? expandHtml : ''}
+            </div>
           </li>  
           `;
       }
@@ -77,7 +90,7 @@ export default class Bookmark {
 
   _handleNewBookmarkEvent() {
     //console.log('adding event listener for newBookmark button');
-    $('.header').on('click', '.newBookmark', event => {
+    $('header').on('click', '.newBookmark', event => {
       //console.log('the NEW button was pressed');
       this.store.toggleAdding();
       this.render();
@@ -85,7 +98,7 @@ export default class Bookmark {
   }
 
   _handleFilterChangeEvent() {
-    $('.header').on('change', '.filter', event => {
+    $('header').on('change', '.filter', event => {
       let val = $(event.target).val();
       this.store.setFilter(val);
       this.render();
@@ -240,7 +253,7 @@ export default class Bookmark {
   }
 
   _renderHeader() {
-    $('.header').html(this._generateHeaderHtml());
+    $('header').html(this._generateHeaderHtml());
   }
 
   _renderMain(id) {

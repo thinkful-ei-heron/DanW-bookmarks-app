@@ -1,3 +1,113 @@
-.bookmarkHeader {
-  border: 2px solid black;
+body {
+  font-family: 'Noto Sans', sans-serif;
 }
+
+body button {
+  cursor: pointer;
+}
+
+header {
+  width: 100vw;
+  text-align: center;
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+header h1 {
+  padding-bottom: 25px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  font-size: 32px;
+}
+
+header label {
+  font-size: 16px;
+}
+
+.newBookmark {
+  width: 60px;
+  margin-bottom: 10px;
+  padding: 5px 10px 5px 10px;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  border: 0;
+  border-radius: 4px;
+}
+
+main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100vw;
+  color: white;
+}
+
+main button {
+  background-color: royalblue;
+  border: 0;
+  padding: 4px 8px 4px 8px;
+}
+
+main button i {
+  color: white;
+}
+
+main button.editBookmark {
+  padding-right: 5px;
+}
+
+.bookmarks {
+  width: 70%;
+}
+
+.site {
+  margin-bottom: 10px;
+}
+
+.bookmarkHeader {
+  height: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: royalblue;
+}
+
+.siteInfo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.siteInfo h3 {
+  margin-right: 10px;
+}
+
+.siteExpansion {
+  background-color: #153084;
+}
+
+.siteExpansion a {
+  line-height: 35px;
+  padding: 10px;
+}
+
+.siteExpansion p {
+  padding: 10px;
+}
+/*# sourceMappingURL=style.css.map */

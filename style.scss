@@ -1,0 +1,101 @@
+$btnColor: royalblue;
+$liBgColor: royalblue;
+$fontColor: white;
+$expandBgColor: #153084;
+
+body {
+  font-family: 'Noto Sans', sans-serif;
+
+  & button {
+    cursor: pointer;
+  }
+}
+
+header {
+  width: 100vw;
+  text-align: center;
+  padding-top: 25px;
+  padding-bottom: 25px;
+
+  & h1 {
+    padding-bottom: 25px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-size: 32px;
+  }
+
+  & label {
+    font-size: 16px;
+  }
+}
+
+.newBookmark {
+  width: 60px;
+  margin-bottom: 10px;
+  padding: 5px 10px 5px 10px;
+  background-color: black;
+  color: $fontColor;
+  font-weight: bold;
+  border: 0;
+  border-radius: 4px;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  color: $fontColor;
+
+  & button {
+    background-color: $btnColor;
+    border: 0;
+    padding: 4px 8px 4px 8px;
+
+    & i {
+      color: $fontColor;
+    }
+  }
+
+  & button.editBookmark {
+    padding-right: 5px;
+  }
+}
+
+.bookmarks {
+  width: 70%;
+}
+
+.site {
+  margin-bottom: 10px;
+}
+
+.bookmarkHeader {
+  height: 50px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: $liBgColor;
+}
+
+.siteInfo {
+  display: flex;
+
+  & h3 {
+    margin-right: 10px;
+  }
+}
+
+.siteExpansion {
+  background-color: $expandBgColor;
+
+  & a {
+    line-height: 35px;
+    padding: 10px;
+  }
+
+  & p {
+    padding: 10px;
+  }
+}
