@@ -71,6 +71,9 @@ export default class Bookmark {
   _generateHomeHtml() {
     let html = '<ul class="bookmarks">';
     let plusMinus;
+
+    if (this.store.bookmarks.length === 0) return this._generateTutorialMessageHtml();
+
     this.store.bookmarks.forEach(bm => {
       if (bm.apiData.rating >= this.store.filter) {
         let expandHtml = '';
@@ -113,25 +116,36 @@ export default class Bookmark {
     return html;
   }
 
+  _generateTutorialMessageHtml() {
+    return `
+    <div class='getStarted'>
+      <p>Welcome to the MyBookmarks App!</p>
+      <p>Just click the 'New' button above to get started.</p>
+    </div>
+    `;
+  }
+
   //generate new bookmark form
   _generateNewBookmarkHtml() {
     return `
       <form class="newBookmarkForm" id="newBookmarkForm">
-        <legend>Add New Bookrmark:</legend>
-        <label for="title">Name</label>
-        <input type="text" name="title" id="title" placeholder="Name your bookmark" required>
-        <label for="url">URL</label>
-        <input type="url" name="url" id="url" placeholder="Enter URL here" pattern="^(http|https)://.*" required>
-        <label for="desc">Description</label>
-        <textarea name="desc" id="desc" form="newBookmarkForm" placeholder="Enter description of the site (optional)"></textarea>
-        <label for="rating">Rating</label>
-        <select name="rating" id="rating" form="newBookmarkForm">
-          <option  value="1">${this.stars[1]}</option>
-          <option value="2">${this.stars[2]}</option>
-          <option selected value="3">${this.stars[3]}</option>
-          <option value="4">${this.stars[4]}</option>
-          <option value="5">${this.stars[5]}</option>
-        </select>
+        <fieldset name="site-info">
+          <legend>Add New Bookrmark:</legend>
+          <label for="title">Name</label>
+          <input type="text" name="title" id="title" placeholder="Name your bookmark" required>
+          <label for="url">URL</label>
+          <input type="url" name="url" id="url" placeholder="Enter URL here" pattern="^(http|https)://.*" required>
+          <label for="desc">Description</label>
+          <textarea name="desc" id="desc" form="newBookmarkForm" placeholder="Enter description of the site (optional)"></textarea>
+          <label for="rating">Rating</label>
+          <select name="rating" id="rating" form="newBookmarkForm">
+            <option  value="1">${this.stars[1]}</option>
+            <option value="2">${this.stars[2]}</option>
+            <option selected value="3">${this.stars[3]}</option>
+            <option value="4">${this.stars[4]}</option>
+            <option value="5">${this.stars[5]}</option>
+          </select>
+        </fieldset>
         <button type="submit">Submit</button>
       </form>
       <button class="cancel">Cancel</button>
@@ -142,23 +156,25 @@ export default class Bookmark {
     let bookmarkObj = this.store.findById(id);
     return `
       <form class="editBookmarkForm" id="editBookmarkForm" data-id="${bookmarkObj.apiData.id}">
-        <legend>Edit Bookrmark:</legend>
-        <label for="title">Name</label>
-        <input type="text" name="title" id="title" value="${bookmarkObj.apiData.title}" required />
-        <label for="url">URL</label>
-        <input type="url" name="url" id="url" value="${
-          bookmarkObj.apiData.url
-        }" pattern="^(http|https)://.*" required />
-        <label for="desc">Description</label>
-        <textarea name="desc" id="desc" form="editBookmarkForm">${bookmarkObj.apiData.desc}</textarea>
-        <label for="rating">Rating</label>
-        <select name="rating" id="rating" form="editBookmarkForm">
-          <option ${bookmarkObj.apiData.rating === 1 ? 'selected' : ''} value="1">${this.stars[1]}</option>
-          <option ${bookmarkObj.apiData.rating === 2 ? 'selected' : ''} value="2">${this.stars[2]}</option>
-          <option ${bookmarkObj.apiData.rating === 3 ? 'selected' : ''} value="3">${this.stars[3]}</option>
-          <option ${bookmarkObj.apiData.rating === 4 ? 'selected' : ''} value="4">${this.stars[4]}</option>
-          <option ${bookmarkObj.apiData.rating === 5 ? 'selected' : ''} value="5">${this.stars[5]}</option>
-        </select>
+        <fieldset name="site-info">
+          <legend>Edit Bookrmark:</legend>
+          <label for="title">Name</label>
+          <input type="text" name="title" id="title" value="${bookmarkObj.apiData.title}" required />
+          <label for="url">URL</label>
+          <input type="url" name="url" id="url" value="${
+            bookmarkObj.apiData.url
+          }" pattern="^(http|https)://.*" required />
+          <label for="desc">Description</label>
+          <textarea name="desc" id="desc" form="editBookmarkForm">${bookmarkObj.apiData.desc}</textarea>
+          <label for="rating">Rating</label>
+          <select name="rating" id="rating" form="editBookmarkForm">
+            <option ${bookmarkObj.apiData.rating === 1 ? 'selected' : ''} value="1">${this.stars[1]}</option>
+            <option ${bookmarkObj.apiData.rating === 2 ? 'selected' : ''} value="2">${this.stars[2]}</option>
+            <option ${bookmarkObj.apiData.rating === 3 ? 'selected' : ''} value="3">${this.stars[3]}</option>
+            <option ${bookmarkObj.apiData.rating === 4 ? 'selected' : ''} value="4">${this.stars[4]}</option>
+            <option ${bookmarkObj.apiData.rating === 5 ? 'selected' : ''} value="5">${this.stars[5]}</option>
+          </select>
+        </fieldset>
         <button type="submit">Submit</button>
       </form>
       <button class="cancelEdit">Cancel</button>

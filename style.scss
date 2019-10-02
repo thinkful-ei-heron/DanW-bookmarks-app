@@ -9,6 +9,7 @@ $newBtnColor: #d51439;
 body {
   font-family: 'Noto Sans', sans-serif;
   background-color: #fdfffd;
+  overflow: hidden;
 
   & button {
     cursor: pointer;
@@ -19,6 +20,7 @@ header {
   width: 100vw;
   height: 200px;
   margin: 0 auto;
+  margin-top: 20px;
   text-align: center;
   padding-top: 35px;
   background-image: url(bookmark.png);
@@ -93,7 +95,7 @@ main {
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin-top: 50px;
+  margin-top: 60px;
   padding-top: 15px;
   color: $fontColor;
 
@@ -167,12 +169,20 @@ main {
   width: 80%;
   max-width: 450px;
   margin: 0 auto;
-  margin-top: -30px;
+  margin-top: -50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: left;
+  align-items: center;
   color: black;
+
+  & fieldset {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 
   & legend {
     font-weight: bold;
@@ -186,12 +196,14 @@ main {
   }
 
   & input {
+    width: 100%;
     padding: 5px;
     margin-bottom: 15px;
     border: 1px solid #cccccc;
   }
 
   & textarea {
+    width: 100%;
     padding: 5px;
     margin-bottom: 15px;
     height: 70px;
@@ -199,6 +211,7 @@ main {
   }
 
   & select {
+    width: 100%;
     margin-bottom: 15px;
     border: 1px solid #cccccc;
   }
@@ -223,4 +236,19 @@ main {
   border-radius: 8px;
   font-weight: bold;
   color: $fontColor;
+}
+
+.getStarted {
+  width: 90%;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  text-align: left;
+  font-size: 16px;
+  color: black;
+
+  & p {
+    line-height: 30px;
+  }
 }

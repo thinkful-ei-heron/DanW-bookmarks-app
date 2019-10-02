@@ -1,6 +1,7 @@
 body {
   font-family: 'Noto Sans', sans-serif;
   background-color: #fdfffd;
+  overflow: hidden;
 }
 
 body button {
@@ -11,6 +12,7 @@ header {
   width: 100vw;
   height: 200px;
   margin: 0 auto;
+  margin-top: 20px;
   text-align: center;
   padding-top: 35px;
   background-image: url(bookmark.png);
@@ -97,7 +99,7 @@ main {
       -ms-flex-align: center;
           align-items: center;
   width: 100%;
-  margin-top: 50px;
+  margin-top: 60px;
   padding-top: 15px;
   color: white;
 }
@@ -179,7 +181,7 @@ main i:hover {
   width: 80%;
   max-width: 450px;
   margin: 0 auto;
-  margin-top: -30px;
+  margin-top: -50px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -190,10 +192,28 @@ main i:hover {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  -webkit-box-align: left;
-      -ms-flex-align: left;
-          align-items: left;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   color: black;
+}
+
+.editBookmarkForm fieldset,
+.newBookmarkForm fieldset {
+  width: 60%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .editBookmarkForm legend,
@@ -211,6 +231,7 @@ main i:hover {
 
 .editBookmarkForm input,
 .newBookmarkForm input {
+  width: 100%;
   padding: 5px;
   margin-bottom: 15px;
   border: 1px solid #cccccc;
@@ -218,6 +239,7 @@ main i:hover {
 
 .editBookmarkForm textarea,
 .newBookmarkForm textarea {
+  width: 100%;
   padding: 5px;
   margin-bottom: 15px;
   height: 70px;
@@ -226,6 +248,7 @@ main i:hover {
 
 .editBookmarkForm select,
 .newBookmarkForm select {
+  width: 100%;
   margin-bottom: 15px;
   border: 1px solid #cccccc;
 }
@@ -254,5 +277,20 @@ main i:hover {
   border-radius: 8px;
   font-weight: bold;
   color: white;
+}
+
+.getStarted {
+  width: 90%;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  text-align: left;
+  font-size: 16px;
+  color: black;
+}
+
+.getStarted p {
+  line-height: 30px;
 }
 /*# sourceMappingURL=style.css.map */
