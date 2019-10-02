@@ -38,16 +38,17 @@ header h1 {
 header h2 {
   position: absolute;
   top: 80px;
-  left: 45px;
+  left: 30px;
   width: 150px;
   font-size: 18px;
   font-weight: bold;
   color: #d51439;
   line-height: 24px;
+  text-align: left;
 }
 
 header label {
-  font-size: 15px;
+  font-size: 16px;
 }
 
 .headerActions {
@@ -65,14 +66,17 @@ header label {
 
 select {
   background-color: white;
+  padding-bottom: 5px;
+  font-size: 16px;
 }
 
 .newBookmark {
   width: 60px;
   margin-bottom: 10px;
-  padding: 5px 10px 5px 10px;
+  padding: 7px 12px 7px 12px;
   background-color: #d51439;
   color: white;
+  font-size: 15px;
   font-weight: bold;
   border: 0;
   border-radius: 8px;
@@ -117,7 +121,7 @@ main i:hover {
 }
 
 .bookmarks {
-  width: 70%;
+  width: 85%;
   max-width: 450px;
 }
 
@@ -153,7 +157,7 @@ main i:hover {
 
 .siteExpansion {
   background-color: #153084;
-  font-size: 14px;
+  font-size: 15px;
 }
 
 .siteExpansion a {

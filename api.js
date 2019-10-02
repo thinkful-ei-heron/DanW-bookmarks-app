@@ -8,7 +8,6 @@ export default class API {
   }
 
   createBookmark(jsonData) {
-    console.log('creating new bookmark in api');
     return this.apiFetch(`${this.BASE_URL}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -17,14 +16,12 @@ export default class API {
   }
 
   deleteBookmark(id) {
-    console.log('in API.deleteBookmark id is ' + id);
     return this.apiFetch(`${this.BASE_URL}/${id}`, {
       method: 'DELETE'
     });
   }
 
   updateBookmark(id, jsonData) {
-    console.log(jsonData);
     return this.apiFetch(`${this.BASE_URL}/${id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
@@ -34,7 +31,6 @@ export default class API {
 
   apiFetch(...args) {
     let error;
-    console.log(args[0]);
     return fetch(...args)
       .then(res => {
         if (!res.ok) {
@@ -54,7 +50,6 @@ export default class API {
         }
 
         // Otherwise give back the data as resolved Promise
-        //console.log(data);
         return data;
       });
   }

@@ -1,12 +1,13 @@
 import Bookmark from './bookmark.js';
 import Store from './store.js';
 import API from './api.js';
+import Controller from './controller.js';
 
 const main = function() {
-  console.log('Starting bookmarks app');
   let store = new Store();
   let api = new API('https://thinkful-list-api.herokuapp.com/DanW/bookmarks');
-  let bookmark = new Bookmark(store, api);
+  let bookmark = new Bookmark(store);
+  let controller = new Controller(store, api, bookmark);
 
   api
     .getBookmarks()
@@ -20,7 +21,7 @@ const main = function() {
       bookmark.render();
     });
 
-  bookmark.bindEventListeners();
+  controller.bindEventListeners();
 };
 
 $(main);

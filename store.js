@@ -9,7 +9,6 @@ export default class Store {
 
   findById(id) {
     return this.bookmarks.find(bm => bm.apiData.id == id);
-    //return bookmark object
   }
 
   addBookmark(bm) {
