@@ -1,7 +1,10 @@
-$btnColor: royalblue;
-$liBgColor: royalblue;
-$fontColor: white;
+$liBgColor: #4282cc;
 $expandBgColor: #153084;
+$fontColor: white;
+$secondaryFontColor: #d51439;
+$linkColor: #69bbff;
+$btnColor: #4282cc;
+$newBtnColor: #d51439;
 
 body {
   font-family: 'Noto Sans', sans-serif;
@@ -13,31 +16,70 @@ body {
 
 header {
   width: 100vw;
+  height: 200px;
+  margin: 0 auto;
   text-align: center;
-  padding-top: 25px;
-  padding-bottom: 25px;
+  padding-top: 35px;
+  background-image: url(bookmark.png);
+  background-repeat: no-repeat;
+  background-position: 50% 0%;
+  background-size: auto 90%;
+
+  & .banner {
+    position: relative;
+    width: 600px;
+    height: 155px;
+    margin: 0 auto;
+  }
 
   & h1 {
     padding-bottom: 25px;
+    margin-right: 70px;
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;
-    font-size: 32px;
+    font-size: 26px;
+    color: white;
+  }
+
+  & h2 {
+    position: absolute;
+    top: 80px;
+    left: 175px;
+    width: 150px;
+    font-size: 18px;
+    font-weight: bold;
+    color: $secondaryFontColor;
+    line-height: 24px;
   }
 
   & label {
-    font-size: 16px;
+    font-size: 15px;
   }
+}
+
+.headerActions {
+  width: 80vw;
+  max-width: 600px;
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: space-around;
+}
+
+select {
+  background-color: white;
 }
 
 .newBookmark {
   width: 60px;
   margin-bottom: 10px;
   padding: 5px 10px 5px 10px;
-  background-color: black;
+  background-color: $newBtnColor;
   color: $fontColor;
   font-weight: bold;
   border: 0;
-  border-radius: 4px;
+  border-radius: 8px;
 }
 
 main {
@@ -45,26 +87,33 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100vw;
+  width: 100%;
+  margin-top: 50px;
+  padding-top: 15px;
   color: $fontColor;
 
   & button {
     background-color: $btnColor;
     border: 0;
-    padding: 4px 8px 4px 8px;
-
-    & i {
-      color: $fontColor;
-    }
   }
 
-  & button.editBookmark {
-    padding-right: 5px;
+  & i {
+    color: $fontColor;
   }
+
+  & i:hover {
+    cursor: pointer;
+  }
+}
+
+.fa-plus,
+.fa-minus {
+  font-size: 14px;
 }
 
 .bookmarks {
   width: 70%;
+  max-width: 450px;
 }
 
 .site {
@@ -74,8 +123,10 @@ main {
 .bookmarkHeader {
   height: 50px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
   background-color: $liBgColor;
 }
 
@@ -89,13 +140,82 @@ main {
 
 .siteExpansion {
   background-color: $expandBgColor;
+  font-size: 14px;
 
   & a {
     line-height: 35px;
     padding: 10px;
   }
 
+  & a,
+  & a:visited {
+    color: $linkColor;
+  }
+
   & p {
     padding: 10px;
   }
+}
+
+.editBookmarkForm,
+.newBookmarkForm {
+  width: 80%;
+  max-width: 450px;
+  margin: 0 auto;
+  margin-top: -30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  color: black;
+
+  & legend {
+    font-weight: bold;
+    margin-bottom: 30px;
+    font-size: 18px;
+  }
+
+  & label {
+    font-size: 15px;
+    margin-bottom: 5px;
+  }
+
+  & input {
+    padding: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #cccccc;
+  }
+
+  & textarea {
+    padding: 5px;
+    margin-bottom: 15px;
+    height: 70px;
+    border: 1px solid #cccccc;
+  }
+
+  & select {
+    margin-bottom: 15px;
+    border: 1px solid #cccccc;
+  }
+
+  & button {
+    width: auto;
+    padding: 5px 10px 5px 10px;
+    align-self: center;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    color: $fontColor;
+  }
+}
+
+.cancel,
+.cancelEdit {
+  width: auto;
+  padding: 5px 10px 5px 10px;
+  align-self: center;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  color: $fontColor;
 }

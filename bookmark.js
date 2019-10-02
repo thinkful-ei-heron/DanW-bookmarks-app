@@ -15,19 +15,28 @@ export default class Bookmark {
   //generate header
   _generateHeaderHtml() {
     let html = '';
-    html += '<h1>MyBookmarks</h1>';
+    html += `
+    <div class="banner">
+      <h1>MyBookmarks</h1>
+      <h2>Easily remember the sites you love</h2>
+    </div>
+    `;
     if (!this.store.adding && !this.store.edit) {
       console.log('filter level is ' + this.store.filter);
       html += `
+        <div class="headerActions">
           <button class="newBookmark">New</button>
+          <div>
           <label for="filter">min. rating</label>
-          <select class="filter" id="filter">
-            <option ${this.store.filter == 1 ? 'selected' : ''} value="1">${this.stars[1]}</option>
-            <option ${this.store.filter == 2 ? 'selected' : ''} value="2">${this.stars[2]}</option>
-            <option ${this.store.filter == 3 ? 'selected' : ''} value="3">${this.stars[3]}</option>
-            <option ${this.store.filter == 4 ? 'selected' : ''} value="4">${this.stars[4]}</option>
-            <option ${this.store.filter == 5 ? 'selected' : ''} value="5">${this.stars[5]}</option>
-          </select>
+            <select class="filter" id="filter">
+              <option ${this.store.filter == 1 ? 'selected' : ''} value="1">${this.stars[1]}</option>
+              <option ${this.store.filter == 2 ? 'selected' : ''} value="2">${this.stars[2]}</option>
+              <option ${this.store.filter == 3 ? 'selected' : ''} value="3">${this.stars[3]}</option>
+              <option ${this.store.filter == 4 ? 'selected' : ''} value="4">${this.stars[4]}</option>
+              <option ${this.store.filter == 5 ? 'selected' : ''} value="5">${this.stars[5]}</option>
+            </select>
+          </div>
+        </div>
         `;
     }
 
@@ -50,25 +59,27 @@ export default class Bookmark {
       if (bm.apiData.rating >= this.store.filter) {
         let expandHtml = '';
         if (bm.expanded) {
-          plusMinus = `<i class="fa fa-minus" data-id="${bm.apiData.id}"></i>`;
+          plusMinus = 'fa fa-minus';
           expandHtml = `
             <a href="${bm.apiData.url}">Visit Site</a>
             <p>${bm.apiData.desc}</p>
           `;
-        } else plusMinus = `<i class="fa fa-plus" data-id="${bm.apiData.id}"></i>`;
+        } else plusMinus = 'fa fa-plus';
+
+        `<i class="fa fa-plus" tabindex="0" data-id="${bm.apiData.id}"></i>`;
 
         html += `
           <li class="site">
             <div class="bookmarkHeader" data-id="${bm.apiData.id}">
-              ${plusMinus}
+              <i class="${plusMinus}" tabindex="0" data-id="${bm.apiData.id}"></i>
               <div class="siteInfo">
                 <h3 data-id="${bm.apiData.id}">${bm.apiData.title}</h3>
                 <p data-id="${bm.apiData.id}" class="rating">${this.stars[bm.apiData.rating]}</p>
               </div>
               <div class="siteButtons">
-              <button class="editBookmark" data-id="${bm.apiData.id}">
-                <i class="fa fa-edit" data-id="${bm.apiData.id}"></i>
-              </button>
+                <button class="editBookmark" data-id="${bm.apiData.id}">
+                  <i class="fa fa-edit" data-id="${bm.apiData.id}"></i>
+                </button>
                 <button class="deleteBookmark" data-id="${bm.apiData.id}">
                   <i class="fa fa-trash-alt" data-id="${bm.apiData.id}"></i>
                 </button>
@@ -138,10 +149,14 @@ export default class Bookmark {
     return `
       <form class="newBookmarkForm" id="newBookmarkForm">
         <legend>Add New Bookrmark:</legend>
-        <input type="text" name="title" placeholder="Name your bookmark" required>
-        <input type="url" name="url" placeholder="Enter URL here" pattern="^(http|https)://.*" required>
-        <textarea name="desc" form="newBookmarkForm" placeholder="Enter description of the site (optional)"></textarea>
-        <select name="rating" form="newBookmarkForm">
+        <label for="title">Name</label>
+        <input type="text" name="title" id="title" placeholder="Name your bookmark" required>
+        <label for="url">URL</label>
+        <input type="url" name="url" id="url" placeholder="Enter URL here" pattern="^(http|https)://.*" required>
+        <label for="desc">Description</label>
+        <textarea name="desc" id="desc" form="newBookmarkForm" placeholder="Enter description of the site (optional)"></textarea>
+        <label for="rating">Rating</label>
+        <select name="rating" id="rating" form="newBookmarkForm">
           <option  value="1">${this.stars[1]}</option>
           <option value="2">${this.stars[2]}</option>
           <option selected value="3">${this.stars[3]}</option>
@@ -159,12 +174,16 @@ export default class Bookmark {
     return `
       <form class="editBookmarkForm" id="editBookmarkForm" data-id="${bookmarkObj.apiData.id}">
         <legend>Edit Bookrmark:</legend>
-        <input type="text" name="title" value="${bookmarkObj.apiData.title}" required />
-        <input type="url" name="url" value="${
+        <label for="title">Name</label>
+        <input type="text" name="title" id="title" value="${bookmarkObj.apiData.title}" required />
+        <label for="url">URL</label>
+        <input type="url" name="url" id="url" value="${
           bookmarkObj.apiData.url
         }" pattern="^(http|https)://.*" required />
-        <textarea name="desc" form="editBookmarkForm">${bookmarkObj.apiData.desc}</textarea>
-        <select name="rating" form="editBookmarkForm">
+        <label for="desc">Description</label>
+        <textarea name="desc" id="desc" form="editBookmarkForm">${bookmarkObj.apiData.desc}</textarea>
+        <label for="rating">Rating</label>
+        <select name="rating" id="rating" form="editBookmarkForm">
           <option ${bookmarkObj.apiData.rating === 1 ? 'selected' : ''} value="1">${this.stars[1]}</option>
           <option ${bookmarkObj.apiData.rating === 2 ? 'selected' : ''} value="2">${this.stars[2]}</option>
           <option ${bookmarkObj.apiData.rating === 3 ? 'selected' : ''} value="3">${this.stars[3]}</option>
@@ -237,11 +256,21 @@ export default class Bookmark {
     });
   }
 
-  _handleExpandBookmarkEvent() {
+  _handleExpandBookmarkClick() {
     $('main').on('click', '.bookmarkHeader', event => {
       let id = $(event.target).data('id');
       this.store.toggleExpanded(id);
       this.render();
+    });
+  }
+
+  _handleExpandBookmarkKeyup() {
+    $('main').on('keyup', '.bookmarkHeader', event => {
+      if (event.keyCode === 13) {
+        let id = $(event.target).data('id');
+        this.store.toggleExpanded(id);
+        this.render();
+      }
     });
   }
   //handle errors
@@ -268,7 +297,8 @@ export default class Bookmark {
     this._handleEditBookmarkEvent();
     this._handleCancelEditEvent();
     this._handleEditBookmarkSubmit();
-    this._handleExpandBookmarkEvent();
+    this._handleExpandBookmarkClick();
+    this._handleExpandBookmarkKeyup();
     this._handleFilterChangeEvent();
   }
 

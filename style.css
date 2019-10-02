@@ -8,31 +8,73 @@ body button {
 
 header {
   width: 100vw;
+  height: 200px;
+  margin: 0 auto;
   text-align: center;
-  padding-top: 25px;
-  padding-bottom: 25px;
+  padding-top: 35px;
+  background-image: url(bookmark.png);
+  background-repeat: no-repeat;
+  background-position: 50% 0%;
+  background-size: auto 90%;
+}
+
+header .banner {
+  position: relative;
+  width: 600px;
+  height: 155px;
+  margin: 0 auto;
 }
 
 header h1 {
   padding-bottom: 25px;
+  margin-right: 70px;
   font-family: 'Montserrat', sans-serif;
   font-weight: bold;
-  font-size: 32px;
+  font-size: 26px;
+  color: white;
+}
+
+header h2 {
+  position: absolute;
+  top: 80px;
+  left: 175px;
+  width: 150px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #d51439;
+  line-height: 24px;
 }
 
 header label {
-  font-size: 16px;
+  font-size: 15px;
+}
+
+.headerActions {
+  width: 80vw;
+  max-width: 600px;
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+select {
+  background-color: white;
 }
 
 .newBookmark {
   width: 60px;
   margin-bottom: 10px;
   padding: 5px 10px 5px 10px;
-  background-color: black;
+  background-color: #d51439;
   color: white;
   font-weight: bold;
   border: 0;
-  border-radius: 4px;
+  border-radius: 8px;
 }
 
 main {
@@ -49,26 +91,33 @@ main {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 100vw;
+  width: 100%;
+  margin-top: 50px;
+  padding-top: 15px;
   color: white;
 }
 
 main button {
-  background-color: royalblue;
+  background-color: #4282cc;
   border: 0;
-  padding: 4px 8px 4px 8px;
 }
 
-main button i {
+main i {
   color: white;
 }
 
-main button.editBookmark {
-  padding-right: 5px;
+main i:hover {
+  cursor: pointer;
+}
+
+.fa-plus,
+.fa-minus {
+  font-size: 14px;
 }
 
 .bookmarks {
   width: 70%;
+  max-width: 450px;
 }
 
 .site {
@@ -80,12 +129,15 @@ main button.editBookmark {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-color: royalblue;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #4282cc;
 }
 
 .siteInfo {
@@ -100,6 +152,7 @@ main button.editBookmark {
 
 .siteExpansion {
   background-color: #153084;
+  font-size: 14px;
 }
 
 .siteExpansion a {
@@ -107,7 +160,94 @@ main button.editBookmark {
   padding: 10px;
 }
 
+.siteExpansion a,
+.siteExpansion a:visited {
+  color: #69bbff;
+}
+
 .siteExpansion p {
   padding: 10px;
+}
+
+.editBookmarkForm,
+.newBookmarkForm {
+  width: 80%;
+  max-width: 450px;
+  margin: 0 auto;
+  margin-top: -30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: left;
+      -ms-flex-align: left;
+          align-items: left;
+  color: black;
+}
+
+.editBookmarkForm legend,
+.newBookmarkForm legend {
+  font-weight: bold;
+  margin-bottom: 30px;
+  font-size: 18px;
+}
+
+.editBookmarkForm label,
+.newBookmarkForm label {
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+
+.editBookmarkForm input,
+.newBookmarkForm input {
+  padding: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #cccccc;
+}
+
+.editBookmarkForm textarea,
+.newBookmarkForm textarea {
+  padding: 5px;
+  margin-bottom: 15px;
+  height: 70px;
+  border: 1px solid #cccccc;
+}
+
+.editBookmarkForm select,
+.newBookmarkForm select {
+  margin-bottom: 15px;
+  border: 1px solid #cccccc;
+}
+
+.editBookmarkForm button,
+.newBookmarkForm button {
+  width: auto;
+  padding: 5px 10px 5px 10px;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  color: white;
+}
+
+.cancel,
+.cancelEdit {
+  width: auto;
+  padding: 5px 10px 5px 10px;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  color: white;
 }
 /*# sourceMappingURL=style.css.map */
