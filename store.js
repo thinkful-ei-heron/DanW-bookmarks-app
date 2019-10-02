@@ -3,29 +3,28 @@ export default class Store {
     this.adding = false;
     this.edit = false;
     this.error = null;
-    this.filter = 0;
+    this.filter = 1;
     this.bookmarks = [];
   }
 
   findById(id) {
-    return this.bookmarks.find(bm => bm.id == id);
+    return this.bookmarks.find(bm => bm.apiData.id == id);
     //return bookmark object
   }
 
   addBookmark(bm) {
-    if (!bm.rating) bm.rating = 0;
-    this.bookmarks.push(bm);
+    this.bookmarks.push({ apiData: bm, expanded: false });
   }
 
   findAndUpdate(id, updated) {
-    console.log('updating ', this.findById(id));
-    console.log('to ', updated);
-    let toUpdate = this.findById(id);
+    //console.log('updating ', this.findById(id));
+    //console.log('to ', updated);
+    let toUpdate = this.findById(id).apiData;
     Object.assign(toUpdate, updated);
   }
 
   findAndDelete(id) {
-    this.bookmarks = this.bookmarks.filter(bm => bm.id != id);
+    this.bookmarks = this.bookmarks.filter(bm => bm.apiData.id != id);
   }
 
   toggleAdding() {
@@ -36,7 +35,16 @@ export default class Store {
     this.edit = !this.edit;
   }
 
-  setFilter(val) {}
+  toggleExpanded(id) {
+    let bm = this.findById(id);
+    bm.expanded = !bm.expanded;
+  }
 
-  setError(err) {}
+  setFilter(val) {
+    this.filter = val;
+  }
+
+  setError(err) {
+    this.error = err;
+  }
 }

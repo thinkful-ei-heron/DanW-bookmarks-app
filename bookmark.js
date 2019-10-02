@@ -16,10 +16,18 @@ export default class Bookmark {
   _generateHeaderHtml() {
     let html = '';
     html += '<h1>MyBookmarks</h1>';
-    if (!this.store.adding) {
+    if (!this.store.adding && !this.store.edit) {
+      console.log('filter level is ' + this.store.filter);
       html += `
           <button class="newBookmark">New</button>
-          <button class="Filter">Filter</button>
+          <label for="filter">Filter by minimum rating</label>
+          <select class="filter" id="filter">
+            <option ${this.store.filter == 1 ? 'selected' : ''} value="1">${this.stars[1]}</option>
+            <option ${this.store.filter == 2 ? 'selected' : ''} value="2">${this.stars[2]}</option>
+            <option ${this.store.filter == 3 ? 'selected' : ''} value="3">${this.stars[3]}</option>
+            <option ${this.store.filter == 4 ? 'selected' : ''} value="4">${this.stars[4]}</option>
+            <option ${this.store.filter == 5 ? 'selected' : ''} value="5">${this.stars[5]}</option>
+          </select>
         `;
     }
 
@@ -38,17 +46,27 @@ export default class Bookmark {
   _generateHomeHtml() {
     let html = '<ul class="bookmarks">';
     this.store.bookmarks.forEach(bm => {
-      html += `
-        <li class="site">
-          <div class="bookmarkHeader">
-            <h3><a href="${bm.url}">${bm.title}</a></h3>
-            <button class="deleteBookmark" data-id="${bm.id}">Delete</button>
-            <button class="editBookmark" data-id="${bm.id}">Edit</button>
-          </div>
-          <p>${this.stars[bm.rating]}</p>
-          <p>${bm.desc}</p>
-        </li>  
-        `;
+      if (bm.apiData.rating >= this.store.filter) {
+        let expandHtml = '';
+        if (bm.expanded) {
+          expandHtml = `
+            <a href="${bm.apiData.url}">Visit Site</a>
+            <p>${bm.apiData.desc}</p>
+          `;
+        }
+
+        html += `
+          <li class="site">
+            <div class="bookmarkHeader" data-id="${bm.apiData.id}">
+              <h3 data-id="${bm.apiData.id}">${bm.apiData.title}</h3>
+              <button class="deleteBookmark" data-id="${bm.apiData.id}">Delete</button>
+              <button class="editBookmark" data-id="${bm.apiData.id}">Edit</button>
+              <p data-id="${bm.apiData.id}" class="rating">${this.stars[bm.apiData.rating]}</p>
+            </div>
+            <p>${bm.expanded ? expandHtml : ''}</p>
+          </li>  
+          `;
+      }
     });
     html += '</ul>';
 
@@ -66,9 +84,17 @@ export default class Bookmark {
     });
   }
 
+  _handleFilterChangeEvent() {
+    $('.header').on('change', '.filter', event => {
+      let val = $(event.target).val();
+      this.store.setFilter(val);
+      this.render();
+    });
+  }
+
   _handleEditBookmarkEvent() {
     $('main').on('click', '.editBookmark', event => {
-      console.log('the EDIT button was pressed');
+      event.stopPropagation();
       let id = $(event.target).data('id');
       this.store.toggleEdit();
       this.render(id);
@@ -78,6 +104,7 @@ export default class Bookmark {
   _handleDeleteBookmarkEvent() {
     $('main').on('click', '.deleteBookmark', event => {
       //console.log('the Cancel button was pressed');
+      event.stopPropagation();
       let id = $(event.target).data('id');
       this.api
         .deleteBookmark(id)
@@ -86,6 +113,7 @@ export default class Bookmark {
           this.render();
         })
         .catch(err => {
+          console.log(err.message);
           this.store.setError(err.message);
           this.render();
         });
@@ -116,17 +144,19 @@ export default class Bookmark {
   _generateEditBookmarkHtml(id) {
     let bookmarkObj = this.store.findById(id);
     return `
-      <form class="editBookmarkForm" id="editBookmarkForm" data-id="${bookmarkObj.id}">
+      <form class="editBookmarkForm" id="editBookmarkForm" data-id="${bookmarkObj.apiData.id}">
         <legend>Edit Bookrmark:</legend>
-        <input type="text" name="title" value="${bookmarkObj.title}" required />
-        <input type="url" name="url" value="${bookmarkObj.url}" pattern="^(http|https)://.*" required />
-        <textarea name="desc" form="editBookmarkForm">${bookmarkObj.desc}</textarea>
+        <input type="text" name="title" value="${bookmarkObj.apiData.title}" required />
+        <input type="url" name="url" value="${
+          bookmarkObj.apiData.url
+        }" pattern="^(http|https)://.*" required />
+        <textarea name="desc" form="editBookmarkForm">${bookmarkObj.apiData.desc}</textarea>
         <select name="rating" form="editBookmarkForm">
-          <option ${bookmarkObj.rating === 1 ? 'selected' : ''} value="1">${this.stars[1]}</option>
-          <option ${bookmarkObj.rating === 2 ? 'selected' : ''} value="2">${this.stars[2]}</option>
-          <option ${bookmarkObj.rating === 3 ? 'selected' : ''} value="3">${this.stars[3]}</option>
-          <option ${bookmarkObj.rating === 4 ? 'selected' : ''} value="4">${this.stars[4]}</option>
-          <option ${bookmarkObj.rating === 5 ? 'selected' : ''} value="5">${this.stars[5]}</option>
+          <option ${bookmarkObj.apiData.rating === 1 ? 'selected' : ''} value="1">${this.stars[1]}</option>
+          <option ${bookmarkObj.apiData.rating === 2 ? 'selected' : ''} value="2">${this.stars[2]}</option>
+          <option ${bookmarkObj.apiData.rating === 3 ? 'selected' : ''} value="3">${this.stars[3]}</option>
+          <option ${bookmarkObj.apiData.rating === 4 ? 'selected' : ''} value="4">${this.stars[4]}</option>
+          <option ${bookmarkObj.apiData.rating === 5 ? 'selected' : ''} value="5">${this.stars[5]}</option>
         </select>
         <button type="submit">Submit</button>
       </form>
@@ -143,13 +173,12 @@ export default class Bookmark {
       this.api
         .createBookmark(jsonBookmark)
         .then(newBookmark => {
-          this.store.addBookmark(JSON.parse(jsonBookmark));
+          this.store.addBookmark(newBookmark);
           this.store.toggleAdding();
           this.render();
         })
         .catch(err => {
           console.log(err);
-          console.log(jsonBookmark);
           this.store.setError(err.message);
           this.render();
         });
@@ -170,6 +199,7 @@ export default class Bookmark {
           this.render();
         })
         .catch(err => {
+          console.log('error in submit edit');
           this.store.setError(err.message);
           this.render();
         });
@@ -193,11 +223,18 @@ export default class Bookmark {
       this.render();
     });
   }
+
+  _handleExpandBookmarkEvent() {
+    $('main').on('click', '.bookmarkHeader', event => {
+      let id = $(event.target).data('id');
+      this.store.toggleExpanded(id);
+      this.render();
+    });
+  }
   //handle errors
 
   //Render page
   render(id) {
-    console.log('rendering -- store.adding is ' + this.store.adding);
     this._renderHeader();
     this._renderMain(id);
   }
@@ -218,6 +255,8 @@ export default class Bookmark {
     this._handleEditBookmarkEvent();
     this._handleCancelEditEvent();
     this._handleEditBookmarkSubmit();
+    this._handleExpandBookmarkEvent();
+    this._handleFilterChangeEvent();
   }
 
   _serializeJson(form) {
