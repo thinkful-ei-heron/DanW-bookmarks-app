@@ -146,7 +146,10 @@ export default class Controller {
   _serializeJson(form) {
     const formData = new FormData(form);
     const o = {};
-    formData.forEach((val, name) => (o[name] = val));
+    formData.forEach((val, name) => {
+      if (name === 'desc' && !val) val = ' ';
+      o[name] = val;
+    });
     return JSON.stringify(o);
   }
 }

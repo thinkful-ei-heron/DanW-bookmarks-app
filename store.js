@@ -15,12 +15,10 @@ export default class Store {
   }
 
   addBookmark(bm) {
-    this.verify(bm);
     this.bookmarks.push({ apiData: bm, expanded: false });
   }
 
   findAndUpdate(id, updated) {
-    this.verify(updated);
     let toUpdate = this.findById(id).apiData;
     Object.assign(toUpdate, updated);
   }
@@ -51,6 +49,7 @@ export default class Store {
   }
 
   verify(bm) {
+    if (typeof bm === 'object') console.log('value passed is an object');
     if (!bm.desc) bm.desc = ' ';
   }
 }
