@@ -5,8 +5,9 @@ export default class Controller {
     this.bookmark = bookmark;
   }
 
+  //
   //handle landing/home page events
-
+  //
   _handleNewBookmarkEvent() {
     $('header').on('click', '.newBookmark', event => {
       this.store.toggleAdding();
@@ -67,7 +68,9 @@ export default class Controller {
     });
   }
 
+  //
   //handle new bookmark form events
+  //
   _handleNewBookmarkFormSubmit() {
     $('main').on('submit', '.newBookmarkForm', event => {
       event.preventDefault();
@@ -95,7 +98,9 @@ export default class Controller {
     });
   }
 
+  //
   //handle edit form events
+  //
   _handleEditBookmarkSubmit() {
     $('main').on('submit', '.editBookmarkForm', event => {
       event.preventDefault();
@@ -137,6 +142,7 @@ export default class Controller {
     this._handleFilterChangeEvent();
   }
 
+  //Convert form data to json
   _serializeJson(form) {
     const formData = new FormData(form);
     const o = {};

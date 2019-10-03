@@ -136,7 +136,7 @@ export default class Bookmark {
           <label for="url">URL</label>
           <input type="url" name="url" id="url" placeholder="Enter URL here" pattern="^(http|https)://.*" required>
           <label for="desc">Description</label>
-          <textarea name="desc" id="desc" form="newBookmarkForm" placeholder="Enter description of the site (optional)"></textarea>
+          <textarea name="desc" id="desc" form="newBookmarkForm" defaultValue = " " placeholder="Enter description of the site (optional)"></textarea>
           <label for="rating">Rating</label>
           <select name="rating" id="rating" form="newBookmarkForm">
             <option  value="1">${this.stars[1]}</option>

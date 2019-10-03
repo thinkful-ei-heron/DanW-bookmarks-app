@@ -4,6 +4,9 @@ export default class Store {
     this.edit = false;
     this.error = null;
     this.filter = 1;
+    //An object array
+    //key: apiData val: a javascript object which mirrors api json data
+    //key expanded: val: boolean flag to determine if description should be displayed
     this.bookmarks = [];
   }
 
@@ -12,12 +15,12 @@ export default class Store {
   }
 
   addBookmark(bm) {
+    this.verify(bm);
     this.bookmarks.push({ apiData: bm, expanded: false });
   }
 
   findAndUpdate(id, updated) {
-    //console.log('updating ', this.findById(id));
-    //console.log('to ', updated);
+    this.verify(updated);
     let toUpdate = this.findById(id).apiData;
     Object.assign(toUpdate, updated);
   }
@@ -45,5 +48,9 @@ export default class Store {
 
   setError(err) {
     this.error = err;
+  }
+
+  verify(bm) {
+    if (!bm.desc) bm.desc = ' ';
   }
 }
