@@ -136,7 +136,7 @@ export default class Bookmark {
           <label for="url">URL</label>
           <input type="url" name="url" id="url" placeholder="Enter URL here" pattern="^(http|https)://.*" required>
           <label for="desc">Description</label>
-          <textarea name="desc" id="desc" form="newBookmarkForm" defaultValue = " " placeholder="Enter description of the site (optional)"></textarea>
+          <textarea name="desc" id="desc" form="newBookmarkForm" placeholder="Enter description of the site (optional)"></textarea>
           <label for="rating">Rating</label>
           <select name="rating" id="rating" form="newBookmarkForm">
             <option  value="1">${this.stars[1]}</option>
@@ -168,11 +168,11 @@ export default class Bookmark {
           <textarea name="desc" id="desc" form="editBookmarkForm">${bookmarkObj.apiData.desc}</textarea>
           <label for="rating">Rating</label>
           <select name="rating" id="rating" form="editBookmarkForm">
-            <option ${bookmarkObj.apiData.rating === 1 ? 'selected' : ''} value="1">${this.stars[1]}</option>
-            <option ${bookmarkObj.apiData.rating === 2 ? 'selected' : ''} value="2">${this.stars[2]}</option>
-            <option ${bookmarkObj.apiData.rating === 3 ? 'selected' : ''} value="3">${this.stars[3]}</option>
-            <option ${bookmarkObj.apiData.rating === 4 ? 'selected' : ''} value="4">${this.stars[4]}</option>
-            <option ${bookmarkObj.apiData.rating === 5 ? 'selected' : ''} value="5">${this.stars[5]}</option>
+            <option ${bookmarkObj.apiData.rating == 1 ? 'selected' : ''} value="1">${this.stars[1]}</option>
+            <option ${bookmarkObj.apiData.rating == 2 ? 'selected' : ''} value="2">${this.stars[2]}</option>
+            <option ${bookmarkObj.apiData.rating == 3 ? 'selected' : ''} value="3">${this.stars[3]}</option>
+            <option ${bookmarkObj.apiData.rating == 4 ? 'selected' : ''} value="4">${this.stars[4]}</option>
+            <option ${bookmarkObj.apiData.rating == 5 ? 'selected' : ''} value="5">${this.stars[5]}</option>
           </select>
         </fieldset>
         <button type="submit">Submit</button>

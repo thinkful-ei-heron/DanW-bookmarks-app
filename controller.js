@@ -147,7 +147,7 @@ export default class Controller {
     const formData = new FormData(form);
     const o = {};
     formData.forEach((val, name) => {
-      if (name === 'desc' && !val) val = ' ';
+      if (name === 'desc' && !val) val = undefined;
       o[name] = val;
     });
     return JSON.stringify(o);

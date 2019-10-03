@@ -15,10 +15,12 @@ export default class Store {
   }
 
   addBookmark(bm) {
+    if (!bm.desc) bm.desc = '';
     this.bookmarks.push({ apiData: bm, expanded: false });
   }
 
   findAndUpdate(id, updated) {
+    if (!updated.desc) updated.desc = '';
     let toUpdate = this.findById(id).apiData;
     Object.assign(toUpdate, updated);
   }
